@@ -6,6 +6,7 @@ import Todos from './components/Todos';
 import Header from './components/layout/Header';
 import AddTodo from './components/AddTodo';
 import { v4 as uuidv4 } from "uuid";
+import axios from 'axios';
 
 import './App.css';
 
@@ -13,23 +14,11 @@ import './App.css';
 
 class App extends Component {
   state = {
-    todos: [
-      {
-        id: uuidv4(),
-        title: "Take out trash",
-        completed: false
-      },
-      {
-        id: uuidv4(),
-        title: "Read Something",
-        completed: false
-      },
-      {
-        id: uuidv4(),
-        title: "Drink Water",
-        completed: false
-      },
-    ]
+    todos: []
+  }
+
+  componentDidMount() {
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10').then(res => this.setState({ todos: res.data }));
   }
   //Toggle Complete
 
